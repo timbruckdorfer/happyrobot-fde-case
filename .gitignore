@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+backend/*.egg-info/
+.venv/
+backend/.venv/
+.pytest_cache/
+backend/.pytest_cache/
+.ruff_cache/
+backend/.ruff_cache/
+
+# Node / Vite
+node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+.npm/
+
+# Backend artifacts
+backend/data/
+backend/app/static/
+*.db
+*.sqlite
+
+# Docker / local
+.docker-data/
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/

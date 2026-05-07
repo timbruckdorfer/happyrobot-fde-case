@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: happyrobot-fde
+    ports:
+      - "8000:8000"
+    environment:
+      API_KEY: ${API_KEY:-dev-api-key-change-me}
+      FMCSA_API_KEY: ${FMCSA_API_KEY:-}
+      DATABASE_URL: sqlite:////data/app.db
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      ENVIRONMENT: ${ENVIRONMENT:-dev}
+    volumes:
+      - ./.docker-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

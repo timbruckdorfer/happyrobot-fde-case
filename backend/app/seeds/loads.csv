@@ -1,0 +1,21 @@
+load_id,origin,destination,pickup_datetime,delivery_datetime,equipment_type,loadboard_rate,notes,weight,commodity_type,num_of_pieces,miles,dimensions
+REF1001,Newark NJ,Atlanta GA,2026-05-07T08:00:00,2026-05-08T18:00:00,Reefer,2450,Keep at 36F. Driver assist required.,38000,Frozen Produce,22,870,48ft pallets
+REF1002,Chicago IL,Dallas TX,2026-05-07T09:30:00,2026-05-09T12:00:00,Dry Van,2100,Drop trailer at consignee.,42000,Packaged Foods,30,925,53ft
+REF1003,Los Angeles CA,Phoenix AZ,2026-05-06T14:00:00,2026-05-07T08:00:00,Dry Van,950,Live unload appointment 0800.,28000,Consumer Goods,18,372,53ft
+REF1004,Seattle WA,Salt Lake City UT,2026-05-08T07:00:00,2026-05-09T20:00:00,Reefer,2750,Temp 34F continuous.,40000,Dairy,24,830,53ft
+REF1005,Houston TX,Memphis TN,2026-05-07T10:00:00,2026-05-08T16:00:00,Flatbed,1850,Tarps required. 4 straps min.,46000,Steel Coils,4,575,48ft flatbed
+REF1006,Miami FL,Charlotte NC,2026-05-08T06:00:00,2026-05-09T18:00:00,Reefer,1950,Multi-stop: 1 pickup 2 deliveries.,32000,Produce,40,720,53ft
+REF1007,Detroit MI,Indianapolis IN,2026-05-06T12:00:00,2026-05-07T08:00:00,Dry Van,780,Hazmat-not-required.,22000,Auto Parts,16,290,53ft
+REF1008,Denver CO,Kansas City MO,2026-05-09T05:00:00,2026-05-10T15:00:00,Dry Van,1450,No-touch freight.,30000,Retail,25,605,53ft
+REF1009,Portland OR,Boise ID,2026-05-07T16:00:00,2026-05-08T10:00:00,Reefer,1250,Frozen. Two-driver team preferred.,36000,Frozen Foods,20,430,53ft
+REF1010,Boston MA,Pittsburgh PA,2026-05-08T08:00:00,2026-05-09T17:00:00,Dry Van,1300,Standard appointment.,28000,Electronics,12,575,53ft
+REF1011,Philadelphia PA,Cleveland OH,2026-05-07T09:00:00,2026-05-08T08:00:00,Dry Van,925,Liftgate not required.,26000,Furniture,8,430,53ft
+REF1012,Nashville TN,Orlando FL,2026-05-08T11:00:00,2026-05-09T19:00:00,Reefer,1675,Beverages refrigerated.,38000,Beverages,28,690,53ft
+REF1013,Las Vegas NV,Albuquerque NM,2026-05-09T08:00:00,2026-05-10T14:00:00,Flatbed,1525,Oversize permits not required.,44000,Construction Materials,6,575,48ft flatbed
+REF1014,Minneapolis MN,St. Louis MO,2026-05-07T13:00:00,2026-05-08T20:00:00,Dry Van,1325,Detention $50/hr after 2hr.,30000,Paper Products,20,560,53ft
+REF1015,Atlanta GA,Jacksonville FL,2026-05-08T07:30:00,2026-05-08T20:00:00,Reefer,1100,Drop & hook available.,34000,Citrus,30,345,53ft
+REF1016,Dallas TX,Oklahoma City OK,2026-05-08T15:00:00,2026-05-09T09:00:00,Dry Van,725,Quick turn.,22000,Retail,12,205,53ft
+REF1017,Salt Lake City UT,Las Vegas NV,2026-05-09T07:00:00,2026-05-09T20:00:00,Dry Van,950,One-day haul.,24000,Mixed CPG,18,420,53ft
+REF1018,Charlotte NC,Newark NJ,2026-05-08T05:00:00,2026-05-09T18:00:00,Reefer,2300,Reefer 38F. Multi-stop NJ.,40000,Pharmaceuticals,15,640,53ft
+REF1019,Phoenix AZ,Los Angeles CA,2026-05-07T18:00:00,2026-05-08T08:00:00,Flatbed,1100,Driver-assist tarp.,42000,Lumber,8,372,48ft flatbed
+REF1020,Indianapolis IN,Atlanta GA,2026-05-08T09:00:00,2026-05-09T15:00:00,Dry Van,1525,Standard dock-to-dock.,30000,General Merchandise,22,535,53ft
