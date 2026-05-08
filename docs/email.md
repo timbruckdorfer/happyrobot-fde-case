@@ -1,7 +1,7 @@
 # Pre-meeting email — Carlos Becker
 
 **To:** c.becker@happyrobot.ai
-**Cc:** <recruiter email>
+**Cc:** <recruiter email>          ← fill in or drop the Cc line at send time
 **Subject:** Inbound carrier-sales POC — links and what to expect on our call
 
 ---
@@ -24,16 +24,17 @@ API-key auth, with reproducible setup via a `Makefile` and a 10-minute runbook.
 
 **Links:**
 
+- 5-minute walkthrough video: <Loom link>          ← fill in at send time
 - Dashboard: <https://happyrobot-fde-tb.fly.dev/>
-- Repo: <https://github.com/your-handle/happyrobot-fde>
-- HappyRobot workflow: <link from the platform>
-- 5-minute walkthrough video: <Loom link>
+- Repo: <https://github.com/timbruckdorfer/happyrobot-fde-case>
 - Build doc (written as if for a freight-broker prospect): in the repo at
   `docs/build_doc.md`.
 
-On our call I'll do a short setup overview, run three live web calls (happy-path,
-counter-offer, and ineligible carrier), and tour the dashboard. Happy to take it deeper
-on any piece — architecture, the negotiation policy, security, or what I'd build next.
+The walkthrough runs through two live calls — a happy-path booking on REF1001 and a
+negotiation that closes on the second round — followed by a quick tour of the
+dashboard, which already shows an ineligible-carrier outcome alongside the two live
+ones. Happy to take it deeper on any piece on the call — architecture, the
+negotiation policy, security, or what I'd build next.
 
 Looking forward to it.
 
