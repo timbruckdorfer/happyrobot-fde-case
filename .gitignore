@@ -37,3 +37,7 @@ Thumbs.db
 
 # Claude Code session state (worktrees, scratch)
 .claude/
+
+# Demo recording prep — kept locally, not part of the deliverable
+docs/demo_script.md
+docs/loom_teleprompter.md

@@ -53,7 +53,7 @@ docs/
   email.md                              Pre-meeting email to Carlos Becker
   happyrobot_workflow.md                Workflow setup spec (prompts, tools, classifiers)
   runbook.md                            Operations / reproduce-in-10-minutes
-  troubleshooting_and_v3_migration.md   V2→V3 migration log + debugging cheat sheet
+  troubleshooting_and_v3_migration.md   V2→V3 migration log + debugging notes
 Dockerfile                multi-stage (Vite build -> Python 3.12 runtime)
 fly.toml                  Fly.io app config
 docker-compose.yml        local container run
@@ -125,5 +125,3 @@ make fly-deploy
 - Pre-meeting email → [docs/email.md](docs/email.md)
 - Operations runbook → [docs/runbook.md](docs/runbook.md)
 - V2→V3 migration log + debugging cheat sheet → [docs/troubleshooting_and_v3_migration.md](docs/troubleshooting_and_v3_migration.md)
-- 5-minute demo recording action plan → [docs/demo_script.md](docs/demo_script.md)
-- Loom teleprompter script (paste-into-Loom) → [docs/loom_teleprompter.md](docs/loom_teleprompter.md)
