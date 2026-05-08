@@ -48,6 +48,16 @@ def test_get_load_is_case_insensitive(client):
     assert resp.json()["load_id"] == "REF1001"
 
 
+def test_get_load_tolerates_whitespace_and_punctuation(client):
+    """Transcribers sometimes split identifiers with spaces ("REF 1001"),
+    LLMs sometimes hyphenate ("REF-1001"), and asciification can split
+    individual letters ("R E F 1001"). All should still resolve."""
+    for variant in ("REF 1001", "ref 1001", "R E F 1001", "ref-1001", "REF.1001"):
+        resp = client.get(f"/api/loads/{variant}")
+        assert resp.status_code == 200, f"variant {variant!r} returned {resp.status_code}: {resp.text}"
+        assert resp.json()["load_id"] == "REF1001"
+
+
 def test_get_load_404(client):
     resp = client.get("/api/loads/DOES-NOT-EXIST")
     assert resp.status_code == 404
@@ -58,6 +68,16 @@ def test_evaluate_offer_is_case_insensitive_on_load_id(client):
     resp = client.post(
         "/api/evaluate_offer",
         json={"load_id": "ref1001", "carrier_offer": 2450, "round": 1},
+    )
+    assert resp.status_code == 200, resp.text
+
+
+def test_evaluate_offer_tolerates_whitespace_in_load_id(client):
+    """Same normalization guarantee as GET /api/loads — voice agents pass
+    "REF 1001" or "ref 1001" routinely."""
+    resp = client.post(
+        "/api/evaluate_offer",
+        json={"load_id": "REF 1001", "carrier_offer": 2450, "round": 1},
     )
     assert resp.status_code == 200, resp.text
 

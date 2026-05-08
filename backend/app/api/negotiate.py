@@ -8,6 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlmodel import Session, func, select
 
+from app.api.loads import normalize_load_id
 from app.core.auth import require_api_key
 from app.core.db import get_session
 from app.core.settings import Settings, get_settings
@@ -50,9 +51,11 @@ def evaluate_offer_endpoint(
     session: Session = Depends(get_session),
     settings: Settings = Depends(get_settings),
 ) -> OfferResponse:
-    # Case-insensitive lookup — see GET /api/loads/{load_id} for rationale.
+    # Normalize for the same reasons GET /api/loads does — voice agents
+    # produce arbitrary case/whitespace combinations.
+    canonical = normalize_load_id(payload.load_id)
     load = session.exec(
-        select(Load).where(func.upper(Load.load_id) == payload.load_id.upper())
+        select(Load).where(func.upper(Load.load_id) == canonical)
     ).first()
     if not load:
         raise HTTPException(status_code=404, detail=f"Load {payload.load_id} not found")

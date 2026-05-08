@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -12,6 +13,18 @@ from app.core.auth import require_api_key
 from app.core.db import get_session
 from app.models.load import Load
 from app.services.loadsearch import search_loads
+
+
+def normalize_load_id(s: str) -> str:
+    """Reduce a user-supplied load reference to its canonical form.
+
+    Voice agents pass identifiers as the transcriber produced them, which
+    means a single carrier saying "REF one zero zero one" can arrive as
+    "REF1001", "ref1001", "REF 1001", "ref 1001", or even "R E F 1 0 0 1".
+    We strip everything that isn't a letter or digit and uppercase the rest,
+    so all of those resolve to "REF1001" — the canonical form stored in DB.
+    """
+    return re.sub(r"[^A-Za-z0-9]", "", s).upper()
 
 router = APIRouter(tags=["loads"])
 
@@ -77,11 +90,10 @@ def search_loads_endpoint(
     summary="Get a single load by ID",
 )
 def get_load(load_id: str, session: Session = Depends(get_session)) -> LoadDTO:
-    # Case-insensitive lookup: voice agents (and humans) sometimes lowercase
-    # identifiers when transcribing or generating tool arguments. The DB has
-    # canonical IDs like "REF1001"; tolerate "ref1001" too.
+    # Normalize the input — see normalize_load_id() for why.
+    canonical = normalize_load_id(load_id)
     load = session.exec(
-        select(Load).where(func.upper(Load.load_id) == load_id.upper())
+        select(Load).where(func.upper(Load.load_id) == canonical)
     ).first()
     if not load:
         raise HTTPException(status_code=404, detail=f"Load {load_id} not found")
