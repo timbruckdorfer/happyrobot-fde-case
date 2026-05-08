@@ -120,6 +120,35 @@ def test_string_numbers_coerced():
     assert out.loadboard_rate == 2450.0
 
 
+def test_list_transcript_serialized_to_json_string():
+    """HappyRobot's webhook node forwards transcript as a structured array
+    when ``preserveDataTypes`` is enabled. SQLite's TEXT column can't bind a
+    Python list, so the translate layer must serialize it to a JSON string."""
+    transcript = [
+        {"role": "assistant", "content": "Hi, this is Happy Robot Logistics."},
+        {"role": "user", "content": "Hi, calling about REF1001."},
+    ]
+    out = translate({"classification": "Success", "transcript": transcript})
+    assert isinstance(out.transcript, str)
+    # Round-trips back to the original structure.
+    import json as _json
+
+    assert _json.loads(out.transcript) == transcript
+
+
+def test_dict_transcript_serialized_to_json_string():
+    """Same defensive coercion for dict-shaped transcripts."""
+    transcript = {"messages": [{"role": "user", "content": "hi"}]}
+    out = translate({"classification": "Success", "transcript": transcript})
+    assert isinstance(out.transcript, str)
+
+
+def test_empty_transcript_normalizes_to_none():
+    """Empty string transcript should land as None, not an empty string."""
+    out = translate({"classification": "Success", "transcript": ""})
+    assert out.transcript is None
+
+
 def test_missing_classification_raises():
     with pytest.raises(ValueError):
         translate({"mc_number": "123"})

@@ -10,6 +10,7 @@ Keep the mapping explicit and reviewable so the dashboard's enums stay clean.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from typing import Any
 
@@ -101,6 +102,21 @@ def _to_bool(v: Any) -> bool | None:
     return None
 
 
+def _to_text(v: Any) -> str | None:
+    """Coerce a webhook field into TEXT-safe storage.
+
+    HappyRobot forwards rich fields (notably `transcript`) as native JSON arrays
+    or objects when ``preserveDataTypes`` is enabled on the webhook node. SQLite's
+    TEXT column can't bind a Python list/dict, so we serialize structured values
+    to JSON and pass strings through as-is. Empty strings become None.
+    """
+    if v is None or v == "":
+        return None
+    if isinstance(v, (list, dict)):
+        return json.dumps(v, ensure_ascii=False)
+    return str(v)
+
+
 def translate(payload: dict[str, Any]) -> CanonicalCall:
     """Translate a HappyRobot end-of-call payload into a canonical Call record.
 
@@ -166,7 +182,7 @@ def translate(payload: dict[str, Any]) -> CanonicalCall:
         loadboard_rate=_to_float(payload.get("loadboard_rate")),
         final_carrier_offer=_to_float(payload.get("final_carrier_offer")),
         agreed_price=_to_float(payload.get("agreed_price")),
-        transcript=payload.get("transcript") or None,
+        transcript=_to_text(payload.get("transcript")),
         notes=notes,
         raw=payload,
     )
