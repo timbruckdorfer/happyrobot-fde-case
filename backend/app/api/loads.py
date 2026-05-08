@@ -6,7 +6,7 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlmodel import Session
+from sqlmodel import Session, func, select
 
 from app.core.auth import require_api_key
 from app.core.db import get_session
@@ -77,7 +77,12 @@ def search_loads_endpoint(
     summary="Get a single load by ID",
 )
 def get_load(load_id: str, session: Session = Depends(get_session)) -> LoadDTO:
-    load = session.get(Load, load_id)
+    # Case-insensitive lookup: voice agents (and humans) sometimes lowercase
+    # identifiers when transcribing or generating tool arguments. The DB has
+    # canonical IDs like "REF1001"; tolerate "ref1001" too.
+    load = session.exec(
+        select(Load).where(func.upper(Load.load_id) == load_id.upper())
+    ).first()
     if not load:
         raise HTTPException(status_code=404, detail=f"Load {load_id} not found")
     return LoadDTO.from_model(load)

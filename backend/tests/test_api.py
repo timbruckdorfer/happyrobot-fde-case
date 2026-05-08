@@ -35,9 +35,31 @@ def test_get_load_by_id(client):
     assert resp.json()["load_id"] == "REF1001"
 
 
+def test_get_load_is_case_insensitive(client):
+    """Voice agents sometimes lowercase identifiers when generating tool args.
+    The DB stores canonical "REF1001"; the endpoint should still resolve it
+    when the agent passes "ref1001"."""
+    resp = client.get("/api/loads/ref1001")
+    assert resp.status_code == 200
+    assert resp.json()["load_id"] == "REF1001"
+
+    resp = client.get("/api/loads/Ref1001")
+    assert resp.status_code == 200
+    assert resp.json()["load_id"] == "REF1001"
+
+
 def test_get_load_404(client):
     resp = client.get("/api/loads/DOES-NOT-EXIST")
     assert resp.status_code == 404
+
+
+def test_evaluate_offer_is_case_insensitive_on_load_id(client):
+    """Same case-insensitivity guarantee as GET /api/loads."""
+    resp = client.post(
+        "/api/evaluate_offer",
+        json={"load_id": "ref1001", "carrier_offer": 2450, "round": 1},
+    )
+    assert resp.status_code == 200, resp.text
 
 
 def test_evaluate_offer_accept(client):

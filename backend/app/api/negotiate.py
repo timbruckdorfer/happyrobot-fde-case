@@ -6,7 +6,7 @@ from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlmodel import Session
+from sqlmodel import Session, func, select
 
 from app.core.auth import require_api_key
 from app.core.db import get_session
@@ -50,7 +50,10 @@ def evaluate_offer_endpoint(
     session: Session = Depends(get_session),
     settings: Settings = Depends(get_settings),
 ) -> OfferResponse:
-    load = session.get(Load, payload.load_id)
+    # Case-insensitive lookup — see GET /api/loads/{load_id} for rationale.
+    load = session.exec(
+        select(Load).where(func.upper(Load.load_id) == payload.load_id.upper())
+    ).first()
     if not load:
         raise HTTPException(status_code=404, detail=f"Load {payload.load_id} not found")
 
