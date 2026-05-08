@@ -34,3 +34,6 @@ Thumbs.db
 # IDE
 .idea/
 .vscode/
+
+# Claude Code session state (worktrees, scratch)
+.claude/

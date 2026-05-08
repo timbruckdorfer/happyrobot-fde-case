@@ -49,10 +49,11 @@ frontend/                 React + Vite dashboard
     components/           KpiCard, Charts (Recharts), CallDrawer
     lib/api.ts            typed fetch client
 docs/
-  build_doc.md            "Acme Logistics" build narrative
-  email.md                Pre-meeting email to Carlos Becker
-  happyrobot_workflow.md  Workflow setup spec (prompts, tools, classifiers)
-  runbook.md              Operations / reproduce-in-10-minutes
+  build_doc.md                          "Acme Logistics" build narrative
+  email.md                              Pre-meeting email to Carlos Becker
+  happyrobot_workflow.md                Workflow setup spec (prompts, tools, classifiers)
+  runbook.md                            Operations / reproduce-in-10-minutes
+  troubleshooting_and_v3_migration.md   V2→V3 migration log + debugging cheat sheet
 Dockerfile                multi-stage (Vite build -> Python 3.12 runtime)
 fly.toml                  Fly.io app config
 docker-compose.yml        local container run
@@ -123,3 +124,4 @@ make fly-deploy
 - Build narrative for "Acme Logistics" → [docs/build_doc.md](docs/build_doc.md)
 - Pre-meeting email → [docs/email.md](docs/email.md)
 - Operations runbook → [docs/runbook.md](docs/runbook.md)
+- V2→V3 migration log + debugging cheat sheet → [docs/troubleshooting_and_v3_migration.md](docs/troubleshooting_and_v3_migration.md)
